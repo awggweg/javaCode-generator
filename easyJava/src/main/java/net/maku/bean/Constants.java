@@ -10,6 +10,7 @@ public class Constants {
     public static String PATH_JAVA="java";
     public static String PACKAGE_BASE;
     public static String PACKAGE_PO;
+    public static String AUTHOR_NAME;
     static {
         IGNORE_TABLE_PREFIX=Boolean.valueOf(PropertiesUtils.get("ignore.table.prefix"));
         SUFFIX_BEAN_PARAM=PropertiesUtils.get("suffix.bean.param");
@@ -21,6 +22,8 @@ public class Constants {
         PATH_PO=PATH_BASE+"/"+PropertiesUtils.get("package.po").replace(".","/");
         PACKAGE_BASE=PropertiesUtils.get("package.base");
         PACKAGE_PO=PACKAGE_BASE+"."+PropertiesUtils.get("package.po");
+
+        AUTHOR_NAME=PropertiesUtils.get("authorName");
     }
     public final static String[] SQL_DATE_TIME_TYPES=new String[]{"datetime","timestamp"};
     public final static String[] SQL_DATE_TYPES=new String[]{"date"};

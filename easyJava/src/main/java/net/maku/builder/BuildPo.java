@@ -1,6 +1,7 @@
 package net.maku.builder;
 
 import net.maku.bean.Constants;
+import net.maku.bean.FieldInfo;
 import net.maku.bean.TableInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,9 +32,25 @@ public class BuildPo {
             bw.newLine();
             bw.write("import java.io.Serializable;");
             bw.newLine();
+            if(tableInfo.getHaveDate()||tableInfo.getHaveDateTime()){
+                bw.write("import java.util.Date;");
+                bw.newLine();
+            }
+            if(tableInfo.getHaveBigDecimal()){
+                bw.write("import java.math.BigDecimal;");
+                bw.newLine();
+            }
             bw.newLine();
+            BuildComment.createClassComment(bw,tableInfo.getComment());
             bw.write("public class "+tableInfo.getBeanName()+" implements Serializable {");
             bw.newLine();
+
+            for(FieldInfo field:tableInfo.getFieldList()){
+                BuildComment.createFieldComment(bw,field.getComment());
+                bw.write("\tprivate "+field.getJavaType()+" "+field.getPropertyName()+";");
+                bw.newLine();
+                bw.newLine();
+            }
             bw.write("}");
             bw.flush();
             //将缓冲区数据写入文件，清空缓冲区
@@ -43,7 +60,9 @@ public class BuildPo {
             throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }finally{
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally{
             if(bw!=null){
                 try {
                     bw.close();

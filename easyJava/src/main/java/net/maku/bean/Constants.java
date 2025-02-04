@@ -5,7 +5,9 @@ import net.maku.utils.PropertiesUtils;
 public class Constants {
     public static Boolean IGNORE_TABLE_PREFIX ;
     public static String SUFFIX_BEAN_PARAM;
-
+    public static String SUFFIX_BEAN_PARAM_FUZZY;
+    public static String SUFFIX_BEAN_PARAM_TIME_START;
+    public static String SUFFIX_BEAN_PARAM_TIME_END;
     //需要忽略的属性
     public static String IGNORE_BEAN_TOJSON_FILED;
     public static String IGNORE_BEAN_TOJSON_EXPRESSIONS;
@@ -23,6 +25,13 @@ public class Constants {
     public static String PATH_JAVA="java";
     public static String PACKAGE_BASE;
     public static String PACKAGE_PO;
+    public static String PACKAGE_UTILS;
+    public static String PATH_UTILS;
+    public static String PACKAGE_ENUMS;
+    public static String PATH_ENUMS;
+    public static String PACKAGE_QUERY;
+    public static String PATH_QUERY;
+
     public static String AUTHOR_NAME;
 
     public static String BEAN_DATA_EXPRESSION;
@@ -30,6 +39,9 @@ public class Constants {
     static {
         IGNORE_TABLE_PREFIX=Boolean.valueOf(PropertiesUtils.get("ignore.table.prefix"));
         SUFFIX_BEAN_PARAM=PropertiesUtils.get("suffix.bean.param");
+        SUFFIX_BEAN_PARAM_FUZZY=PropertiesUtils.get("suffix.bean.param.fuzzy");
+        SUFFIX_BEAN_PARAM_TIME_START=PropertiesUtils.get("suffix.bean.param.time.start");
+        SUFFIX_BEAN_PARAM_TIME_END=PropertiesUtils.get("suffix.bean.param.time.end");
 
         PATH_BASE=PropertiesUtils.get("path.base");
         PATH_BASE=PATH_BASE+PATH_JAVA+"/"+PropertiesUtils.get("package.base");
@@ -38,6 +50,12 @@ public class Constants {
         PATH_PO=PATH_BASE+"/"+PropertiesUtils.get("package.po").replace(".","/");
         PACKAGE_BASE=PropertiesUtils.get("package.base");
         PACKAGE_PO=PACKAGE_BASE+"."+PropertiesUtils.get("package.po");
+        PACKAGE_UTILS=PACKAGE_BASE+"."+PropertiesUtils.get("package.utils");
+        PATH_UTILS=PATH_BASE+"/"+PropertiesUtils.get("package.utils").replace(".","/");
+        PACKAGE_ENUMS=PACKAGE_BASE+"."+PropertiesUtils.get("package.enums");
+        PATH_ENUMS=PATH_BASE+"/"+PropertiesUtils.get("package.enums").replace(".","/");
+        PACKAGE_QUERY=PACKAGE_BASE+"."+PropertiesUtils.get("package.query");
+        PATH_QUERY=PATH_BASE+"/"+PropertiesUtils.get("package.query").replace(".","/");
 
         AUTHOR_NAME=PropertiesUtils.get("authorName");
 

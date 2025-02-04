@@ -42,6 +42,11 @@ public class BuildPo {
                 bw.newLine();
                 bw.write(Constants.BEAN_DATE_UNFORMAT_CLASS+";");
                 bw.newLine();
+
+                bw.write("import "+Constants.PACKAGE_ENUMS+".DatePatternEnum;");
+                bw.newLine();
+                bw.write("import "+Constants.PACKAGE_UTILS+".DateUtil;");
+                bw.newLine();
             }
             //序列化忽略属性
             Boolean haveIgnoreBean=false;
@@ -104,7 +109,14 @@ public class BuildPo {
             Integer index=0;
             for(FieldInfo field:tableInfo.getFieldList()){
                 index++;
-                toString.append(field.getComment()+":\"+("+field.getPropertyName()+"==null?\"空\" :"+field.getPropertyName()+")");
+
+                String properName=field.getPropertyName();
+                if(Arrays.stream(Constants.SQL_DATE_TIME_TYPES).anyMatch(properName::contains)){
+                    properName="DateUtils.format("+properName+",DatePatternEnum.YYYY_MM_DD_HH_MM_SS.getPattern())";
+                }else if(Arrays.stream(Constants.SQL_DATE_TYPES).anyMatch(properName::contains)){
+                    properName="DateUtils.format("+properName+",DatePatternEnum.YYYY_MM_DD.getPattern())";
+                }
+                toString.append(field.getComment()+":\"+("+field.getPropertyName()+"==null?\"空\" :"+properName+")");
                 if(index<tableInfo.getFieldList().size()){
                     if(index<tableInfo.getFieldList().size()){
                         toString.append("+").append("\",");
